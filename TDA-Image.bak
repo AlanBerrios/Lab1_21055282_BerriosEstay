@@ -162,7 +162,7 @@ Recorrido(Retorno): Booleano
       true false)))
 
 #| Documentacion: TDA-dentrodelarea?
-Descripcion: Verifica si las coordenadas x e y de cada pixel estan dentro del alto y ancho de la imagen
+Descripcion: Verifica si los 
 Tipo de algoritmo/estrategia: No aplica
 Dominio(Argumento de entrada): Lista de n-variables (pixbit-d | pixrgb-d | pixhex-d)
 Recorrido(Retorno): Booleano
