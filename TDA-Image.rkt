@@ -168,9 +168,9 @@ Dominio(Argumento de entrada): Lista de n-variables (pixbit-d | pixrgb-d | pixhe
 Recorrido(Retorno): Booleano
 |#
 
-(define dentrodelarea? (lambda (alto ancho lista)
-                         (if (and (andmap (lambda (x) (> alto (list-ref x 0))) lista)
-                                  (andmap (lambda (x) (> ancho (list-ref x 1))) lista))
+(define dentrodelarea? (lambda (ancho alto lista)
+                         (if (and (andmap (lambda (x) (> ancho (list-ref x 0))) lista)
+                                  (andmap (lambda (x) (> alto (list-ref x 1))) lista))
                              true false)))
 
 ;TDA constructor
@@ -184,14 +184,14 @@ Dominio(Argumento de entrada): width (int) X height (int) X pixeles (de n-variab
 Recorrido(Retorno): image '(alto ancho . pixeles)
 |#
 
-(define image (lambda (alto ancho . pixeles)
+(define image (lambda (ancho alto . pixeles)
     (if (and (int>0? ancho) 
              (int>0? alto)
              (<= (length pixeles)(* ancho alto))
              (homologo? pixeles)
-             (dentrodelarea? alto ancho pixeles)
+             (dentrodelarea? ancho alto pixeles)
              )        
-        (list alto ancho pixeles)
+        (list ancho alto pixeles)
         null )))
 
 (provide (all-defined-out))

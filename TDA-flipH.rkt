@@ -38,7 +38,7 @@ Recorrido(Retorno): lista (list)
                                 (append (list (list-ref pix 0) (abs (- (list-ref pix 1) (- ancho 1)))) (cddr pix))))
                 
                 (if (and (list? lista)(not(null? lista)))
-                    (list (list-ref lista 0)(list-ref lista 1)(mymaprecur (lambda (p) (flopH (list-ref lista 1) p)) (list-ref lista 2)))
+                    (list (list-ref lista 0)(list-ref lista 1)(mymaprecur (lambda (p) (flopH (list-ref lista 0) p)) (list-ref lista 2)))
                     null)))
 
 (provide (all-defined-out))
