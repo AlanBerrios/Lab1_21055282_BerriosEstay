@@ -170,7 +170,7 @@ Recorrido(Retorno): Booleano
 
 (define dentrodelarea? (lambda (ancho alto lista)
                          (if (and (andmap (lambda (x) (> ancho (list-ref x 0))) lista)
-                                  (andmap (lambda (x) (> alto (list-ref x 1))) lista))
+                                  (andmap (lambda (y) (> alto (list-ref y 1))) lista))
                              true false)))
 
 ;TDA constructor
