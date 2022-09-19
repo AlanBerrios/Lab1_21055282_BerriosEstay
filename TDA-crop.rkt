@@ -33,7 +33,7 @@ Recorrido(Retorno): lista (list)
 Descripcion: Funcion que recorta la imagen mediante 2 coordenadas, reescala los parametros de ancho, alto de la imagen y las coordenadas x e y de cada pixel
 Tipo de algoritmo/estrategia: No aplica
 Dominio(Argumento de entrada): imagen (image) X x1 (int) X y1 (int) X x2 (int) X y2 (int)
-Recorrido(Retorno): image "recortada y "
+Recorrido(Retorno): image "recortada y re-escalada"
 
 Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la descripcion, dominio y retorno.
 
