@@ -3,8 +3,6 @@
 (require "TDA-Image.rkt")
 (require "TDA-flipV.rkt")
 
-; require - image, flipV
-
 #| Documentacion: TDA-rotate90
 Descripcion: Funcion que gira en 90 grados la imagen hacia la derecha.
 Tipo de algoritmo/estrategia: No aplica
