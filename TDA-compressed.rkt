@@ -10,10 +10,15 @@ Recorrido(Retorno): Booleano
 |#
 
 (define compressed? (lambda (lista)
-                      (if (and (list? lista)(not(null? lista)))
-                          (if (> (*(list-ref lista 0)(list-ref lista 1)) (length (list-ref lista 2)))
-                              true
-                              false)
+                      (if (and (list? lista)(not(null? lista)))                          
+                          (if (not(null? (list-ref lista 2)))                              
+                              (if (> (*(list-ref lista 0)(list-ref lista 1)) (length (list-ref lista 2)))
+                                  true
+                                  false)                              
+                              (if (> (*(list-ref lista 0)(list-ref lista 1)) (- (length (list-ref lista 2)) 1))
+                                  true
+                                  null))                              
                           null)))
+
 
 (provide (all-defined-out))
