@@ -90,26 +90,26 @@ img3
 (display "\n")
 (display "\n")
 
-(define img4 (crop img1 0 0 0 0)) ; debería retornar una imágen con un pixel
+(define img4 (crop img1 0 0 0 0))
 img4
-(define img5 (crop img2 0 0 0 1)) ; debería retornar una imágen con dos pixeles
+(define img5 (crop img2 0 0 0 1))
 img5
-(define img6 (crop img1 0 1 1 1)) ; debería retornar una imágen con dos pixeles
+(define img6 (crop img1 0 1 1 1))
 img6
-(define img7 (crop img2 0 0 1 1))  ; debería retornar la misma imagen
+(define img7 (crop img2 0 0 1 1))
 img7
 (display "\n")
 (display "------------------------------ histogram --------------------------------------------------------------")
 (display "\n")
 (display "\n")
 
-(histogram img1)     ; deberia devolver que cada color tiene un pixel
-(histogram img2)     ; deberia devolver 2 bits 0 y 2 bits 1
-(histogram img3)     ; deberia devolver que cada color tiene un pixel
-(histogram img4)     ; debería retornar un solo color con 1 repeticion
-(histogram img5)     ; debería retornar un dos colores con 1 repeticion
-(histogram img6)     ; debería retornar un dos colores con 1 repeticion
-(histogram img7)     ; deberia devolver 2 bits 0 y 2 bits 1
+(histogram img1)
+(histogram img2)
+(histogram img3)
+(histogram img4)
+(histogram img5)
+(histogram img6)
+(histogram img7)
 (display "\n")
 (display "-------------------------------- rotate90 ------------------------------------------------------------")
 (display "\n")
@@ -134,7 +134,7 @@ img24
 (display "\n")
 (display "\n")
     
-(define img8 (compress img1))    
+(define img8 (compress img1))
 img8
 (define img9 (compress img2))
 img9
@@ -165,7 +165,7 @@ img14
 (display "\n")
 (display "\n")
 
-(define img15 (edit invertColorBit img2))   
+(define img15 (edit invertColorBit img2))
 img15
 (define img16 (edit invertColorRGB img1))
 img16
@@ -237,13 +237,13 @@ img35
 (display "\n")
 
 
-(display (image->string img33 pixrgb->string)) ;Aqui deberia ser (display (image->string img15 pixrgb->string)) pero img15 es pixbit. No se corrigio en el docs
+(display (image->string img33 pixrgb->string)) ;Aqui deberia ser (display (image->string img15 pixrgb->string)) pero img15 es pixbit
 (display "\n")
 (display "\n")
-(display (image->string img34 pixrgb->string)) ;Aqui deberia ser (display (image->string img16 pixrgb->string)) pero img16 es pixbit. No se corrigio en el docs
+(display (image->string img34 pixrgb->string)) ;Aqui deberia ser (display (image->string img16 pixrgb->string)) pero img16 es pixbit
 (display "\n")
 (display "\n")
-(display (image->string img35 pixrgb->string)) ;Aqui deberia ser (display (image->string img17 pixrgb->string)) pero img17 no esta definida. No se corrigio en el docs
+(display (image->string img35 pixrgb->string)) ;Aqui deberia ser (display (image->string img17 pixrgb->string)) pero img17 no esta definida
 (display "\n")
 (display "\n")
 (display (image->string img18 pixrgb->string)) 
