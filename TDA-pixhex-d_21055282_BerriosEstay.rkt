@@ -1,6 +1,6 @@
 #lang racket
 
-(require "TDA-pixbit-d_21055282_Berrios.rkt")
+(require "TDA-pixbit-d_21055282_BerriosEstay.rkt")
 
 ; --------- Tipo de Funcion: de pertenecia ------------
 

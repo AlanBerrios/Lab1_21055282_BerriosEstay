@@ -1,9 +1,9 @@
 #lang racket
 
-(require "TDA-pixbit-d_21055282_Berrios.rkt")
-(require "TDA-pixrgb-d_21055282_Berrios.rkt")
-(require "TDA-pixhex-d_21055282_Berrios.rkt")
-(require "TDA-image_21055282_Berrios.rkt")
+(require "TDA-pixbit-d_21055282_BerriosEstay.rkt")
+(require "TDA-pixrgb-d_21055282_BerriosEstay.rkt")
+(require "TDA-pixhex-d_21055282_BerriosEstay.rkt")
+(require "TDA-image_21055282_BerriosEstay.rkt")
 
 
 ;Pruebas del documento del laboratorio

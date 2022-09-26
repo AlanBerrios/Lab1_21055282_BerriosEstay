@@ -1,9 +1,9 @@
 #lang racket
 
 ; Se requieren los siguientes archivos para poder construir el TDA-Image.
-(require "TDA-pixbit-d_21055282_Berrios.rkt")
-(require "TDA-pixrgb-d_21055282_Berrios.rkt")
-(require "TDA-pixhex-d_21055282_Berrios.rkt")
+(require "TDA-pixbit-d_21055282_BerriosEstay.rkt")
+(require "TDA-pixrgb-d_21055282_BerriosEstay.rkt")
+(require "TDA-pixhex-d_21055282_BerriosEstay.rkt")
 
 ; ------------------------------------------------------------------------------------------------------------------------------------
 ; ------------------------------------------- ACLARACIONES COMENTARIOS ---------------------------------------------------------------
