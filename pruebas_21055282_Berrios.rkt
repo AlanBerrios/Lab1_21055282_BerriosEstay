@@ -1,9 +1,9 @@
 #lang racket
 
-(require "TDA-pixbit-d.rkt")
-(require "TDA-pixrgb-d.rkt")
-(require "TDA-pixhex-d.rkt")
-(require "TDA-image.rkt")
+(require "TDA-pixbit-d_21055282_Berrios.rkt")
+(require "TDA-pixrgb-d_21055282_Berrios.rkt")
+(require "TDA-pixhex-d_21055282_Berrios.rkt")
+(require "TDA-image_21055282_Berrios.rkt")
 
 
 ;Pruebas del documento del laboratorio
@@ -161,7 +161,7 @@ img14
 (compressed? img13)  ; la respuesta debería ser #t
 (compressed? img14)  ; la respuesta debería ser #t
 (display "\n")
-(display "-------------------- invertColorbit- invertColorRGB ---------------------------------------------------------")
+(display "-------------------- invertColorbit - invertColorRGB ---------------------------------------------------------")
 (display "\n")
 (display "\n")
 
@@ -582,13 +582,13 @@ imagen4x4hex
 (display "\n")
 (display "\n")
 
-(image->string (compress (invertColorBit imagen2x2bit)) pixbit->string)
+(display (image->string (compress (invertColorBit imagen2x2bit)) pixbit->string))
 (display "\n")
 (display "\n")
-(image->string imagen3x3rgb pixrgb->string)
+(display (image->string imagen3x3rgb pixrgb->string))
 (display "\n")
 (display "\n")
-(image->string (flipH (rotate90 imagen3x3bit)) pixbit->string)
+(display (image->string (flipH (rotate90 imagen3x3bit)) pixbit->string))
 (display "\n")
 (display "\n")
 

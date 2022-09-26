@@ -1,0 +1,39 @@
+Autoevaluacion:
+
+Requerimientos no funcionales    Evaluacion/Puntaje 
+
+-Autoevaluación (obligatorio):              1 *
+-Lenguaje (obligatorio):                    1 *
+-Versión (obligatorio):                     1 *
+-Standard (obligatorio):                    1 *
+-No variables (obligatorio):                1 *
+-Documentación:                            0.75
+-Dom->Rec (obligatorio):                    1 *
+-Organización:                              1 
+-Historial:                                 1
+-Script de pruebas (obligatorio):           1 *
+-Prerrequisitos (obligatorio):              1 *
+
+Requerimientos Funcionales         Evaluacion/Puntaje
+
+- TDAs                                      1
+- TDA image - constructor                   1
+- bitmap?:                                  1
+- pixmap?:                                  1
+- hexmap?:                                  1
+- compressed?:                              1
+- flipH:                                    1
+- flipV:                                    1
+- crop:                                     1
+- imgRGB->imgHex:                           1
+- rotate90:                                 1
+- compress:                                0.75
+- edit:                                     1
+- invertColorBit:                           1
+- invertColorRGB:                           1 
+- adjustChannel:                            1
+- image->string:                            1
+- depthLayers:                              1
+- decompress:                               0
+
+Los puntajes que tienen * es debido a que no quedo claro si debian tener puntaje.

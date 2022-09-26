@@ -1,9 +1,9 @@
 #lang racket
 
 ; Se requieren los siguientes archivos para poder construir el TDA-Image.
-(require "TDA-pixbit-d.rkt")
-(require "TDA-pixrgb-d.rkt")
-(require "TDA-pixhex-d.rkt")
+(require "TDA-pixbit-d_21055282_Berrios.rkt")
+(require "TDA-pixrgb-d_21055282_Berrios.rkt")
+(require "TDA-pixhex-d_21055282_Berrios.rkt")
 
 ; ------------------------------------------------------------------------------------------------------------------------------------
 ; ------------------------------------------- ACLARACIONES COMENTARIOS ---------------------------------------------------------------
@@ -177,6 +177,7 @@ Recorrido(Retorno): Booleano
                                      (if (null? lista)
                                          null
                                          (cons (procedimiento (car lista)) (mymaprecur procedimiento (cdr lista))))))
+                                               ; Recursion de cola. No se dejan procedimientos sin realizar en el camino
 
 ; --------- Tipo de Funcion: modificador ------------ :::::::::::::::::::::::::::::::::: FLIPH ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -225,18 +226,18 @@ Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la d
 ; --------- Tipo de Funcion: Otros ------------
 ; Funcion recibe una lista y devuelve el valor minimo de esta. Tipo de recursion: De cola. Dom: lista (list). Rec: int
 
-(define (get-minimo lista)
+(define get-minimo (lambda (lista)
   (cond[(null? (cdr lista)) (list-ref lista 0)]
-       [(< (list-ref lista 0) (get-minimo (cdr lista))) (list-ref lista 0)]
-       [else (get-minimo (cdr lista))]))
+       [(< (list-ref lista 0) (get-minimo (cdr lista))) (list-ref lista 0)] ; Recursion de cola. No se dejan procedimientos sin realizar en el camino
+       [else (get-minimo (cdr lista))]))) ; Recursion
 
 ; --------- Tipo de Funcion: Otros ------------
 ; Funcion elimina los elementos repetidos de una lista. Tipo de recursion: De cola. Dom: lista (list). Rec: list
 
-(define (delrepe lista)
+(define delrepe (lambda (lista)
   (cond [(null? lista) lista]
-        [(member (list-ref lista 0) (cdr lista)) (delrepe (cdr lista))]
-        [else (append (list (list-ref lista 0)) (delrepe (cdr lista)))]))
+        [(member (list-ref lista 0) (cdr lista)) (delrepe (cdr lista))] ; Recursion de cola. No se dejan procedimientos sin realizar en el camino
+        [else (append (list (list-ref lista 0)) (delrepe (cdr lista)))]))) ; Recursion
 
 ; --------- Tipo de Funcion: modificador ------------ :::::::::::::::::::::::::::::::::: CROP ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -303,9 +304,11 @@ Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la d
                                              (length listays)
                                              (pixelescorregidos (getpixeles imagencropeada) menorx menory))))
                
-               ; Aqui se juntan las funciones anteriores y se ejecuta finalmente la funcion crop          
+               ; Aqui se juntan las funciones anteriores y se ejecuta finalmente la funcion crop
+           (if (not(null? (getpixeles imagen)))
                (devolver-crop (cropear imagen x1 y1 x2 y2) (get-minimo (getall-x (cropear imagen x1 y1 x2 y2))) (get-minimo (getall-y (cropear imagen x1 y1 x2 y2)))
-                              (delrepe (getall-x (cropear imagen x1 y1 x2 y2))) (delrepe (getall-y (cropear imagen x1 y1 x2 y2))))))
+                              (delrepe (getall-x (cropear imagen x1 y1 x2 y2))) (delrepe (getall-y (cropear imagen x1 y1 x2 y2))))
+               null)))
 
 
 ;---- Necesarios para el imgRGB->imgHex -----
@@ -333,7 +336,8 @@ Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la d
                           (if ( = (string-length RGB1) 1)
                               (string-append (tablahexadeciamal RGB) RGB1)
                               null))
-                      (rgbahex (quotient RGB 16)(string-append (tablahexadeciamal(abs(-(*(quotient RGB 16) 16) RGB)))RGB1))))) ;Recursion de cola
+                      (rgbahex (quotient RGB 16)(string-append (tablahexadeciamal(abs(-(*(quotient RGB 16) 16) RGB)))RGB1)))))
+                      ; Recursion de cola. No se dejan procedimientos sin realizar en el camino
 
 ; --------- Tipo de Funcion: Otros ------------    
 ;Funcion que une los 3 numeros de colores de un pixrgb-d, los transforma a hex y los junta en un solo string. Dom: R(int) X G(int) X B(int). Rec: string
@@ -376,7 +380,8 @@ Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la d
 |#
 
 (define histogram (lambda (imagen)
-                    ; Funcion que cuenta la cantidad de bits que hay en la imagen. Tipo de recursion: De cola. Dom: pixeles(list). Rec: lista de cada bit y su cantidad (list)
+                    ; Funcion que cuenta la cantidad de bits que hay en la imagen. Tipo de recursion: De cola mediante la funcion contar
+                    ; Dom: pixeles(list). Rec: lista de cada bit y su cantidad (list)
                     (define contarbits (lambda (pixeles)
                                          ;Funcion que obtiene todos los bits de los pixeles. Dom: pixeles(list). Rec: bits (list)
                                          (define obtener01s (lambda (pixeles)
@@ -386,9 +391,9 @@ Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la d
                                                           (if (null? lista)
                                                               (list (list 0 cont0) (list 1 cont1))                       
                                                               (if (= (car lista) 0)
-                                                                  (contar (cdr lista) (+ cont0 1) cont1)                    
+                                                                  (contar (cdr lista) (+ cont0 1) cont1) ; Recursion de cola. No se dejan procedimientos sin realizar en el camino              
                                                                   (if (= (car lista) 1)
-                                                                      (contar (cdr lista) cont0 (+ cont1 1))                                                  
+                                                                      (contar (cdr lista) cont0 (+ cont1 1))  ;Recursion                                                
                                                                       null)))))
                                          ; Aqui se manda a llamar a contar los numeros de bits
                                          (contar (obtener01s pixeles) 0 0)))
@@ -398,7 +403,8 @@ Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la d
                                          ;Funcion que devuelve una lista con todos los colores de cada pixel. Dom: pixeles (list). Rec: lista de colores (list)
                                          (define obtenergbs (lambda (pixeles)
                                                               (map (lambda (q) (list (sub1(add1 (getR q))) (sub1(add1 (getG q))) (sub1(add1 (getB q))) )) pixeles)))
-                  ; Funcion que cuenta cuantas veces se repite un color en la imagen. Tipo de recursion: De cola. Dom: pixel (pixrgb-d) X pixeles (list) X cont(int 0). Rec: list
+                  ; Funcion que cuenta cuantas veces se repite un color en la imagen. Tipo de recursion: De cola, mismas razones que contarbits.
+                                                                                            ; Dom: pixel (pixrgb-d) X pixeles (list) X cont(int 0). Rec: list
                                          (define contargb (lambda (pixel pixeles cont)                   
                                                             (if (null? pixeles)
                                                                 (list pixel cont)                       
@@ -406,14 +412,15 @@ Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la d
                                                                     (contargb pixel (cdr pixeles) (+ cont 1))
                                                                     (contargb pixel (cdr pixeles) cont)) )))
                                      ; Aqui se juntan las funciones anteriores y devuelve la lista de los colores y su cantidad en la imagen
-                                         (map (lambda (p) (contargb p (obtenergbs pixeles) 0)) (delrepe (obtenergbs pixeles)))))
+                                         (map (lambda (p) (contargb p (obtenergbs pixeles) 0)) (delrepe (obtenergbs pixeles))))) ; Recursion de cola. No se dejan procedimientos sin realizar en el camino
                     
                  ;Funcion que devuelve cada color de la imagen y cuantas veces se repite el color. Tipo de recursion: De cola. Dom: pixeles (list). Rec: colores hex y cantidad (list)
                     (define contarhexs (lambda (pixeles)
                                          ;Funcion que devuelve una lista con todos los colores hex de cada pixel. Dom: pixeles (list). Rec: lista de colores hex (list)
                                          (define obtenerhexs (lambda (pixeles)
                                                                (map (lambda (q) (list->string(reverse(cdr(reverse(string->list(string-append (gethex q) "a"))))))) pixeles)))
-                 ; Funcion que cuenta cuantas veces se repite un color hex en la imagen. Tipo de recursion: De cola. Dom: pixel (pixhex-d) X pixeles (list) X cont(int 0). Rec: list
+                 ; Funcion que cuenta cuantas veces se repite un color hex en la imagen. Tipo de recursion: De cola, mismas razones que contarbit y contargb.
+                                                                                           ; Dom: pixel (pixhex-d) X pixeles (list) X cont(int 0). Rec: list
                                          (define contahex (lambda (pixel pixeles cont)                   
                                                             (if (null? pixeles)
                                                                 (list pixel cont)                       
@@ -421,7 +428,7 @@ Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la d
                                                                     (contahex pixel (cdr pixeles) (+ cont 1))
                                                                     (contahex pixel (cdr pixeles) cont)) )))
                                   ; Aqui juntan las funciones anteriores y devuelve la lista de los colores hex y su cantidad en la imagen
-                                         (map (lambda (p) (contahex p (obtenerhexs pixeles) 0)) (delrepe (obtenerhexs pixeles)))))
+                                         (map (lambda (p) (contahex p (obtenerhexs pixeles) 0)) (delrepe (obtenerhexs pixeles))))) ; Recursion de cola. No se dejan procedimientos sin realizar en el camino
                  ; Aqui se verifica que tipo de map es la imagen, dependiendo de esto, realiza una operacion u otra.
                     (cond
                       [(bitmap? imagen) (contarbits (getpixeles imagen))]
@@ -450,7 +457,7 @@ Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la d
 
 #| Documentacion: compress
 Descripcion: Funcion que comprime una imagen eliminando aquellos pixeles con el color más frecuente.
-Tipo de algoritmo/estrategia: No aplica
+Tipo de algoritmo/estrategia: Fuerza bruta, debido a que en la funcion removepix, se realiza un proceso u otro dependiendo del tipo de pixeles
 Dominio(Argumento de entrada): imagen (image)
 Recorrido(Retorno): image
 Funciones anonimas: Cada funcion anononima tendra un comentario arriba para la descripcion, dominio y retorno.
@@ -591,7 +598,7 @@ Recorrido(Retorno): image
                     (if (null? (cdr lista))                        
                         (cons (colorastring (car lista)) null)                                                  
                         (if (= (getx (car lista)) (- x 1))                                                
-                            (append (list (colorastring (car lista)) "\n") (setSaltosdelinea x y (cdr lista))) ; Recusion
+                            (append (list (colorastring (car lista)) "\n") (setSaltosdelinea x y (cdr lista))); Recursion de cola. No se dejan procedimientos sin realizar en el camino
 
                             (append (list (colorastring (car lista))) (setSaltosdelinea x y (cdr lista)))))))  ; Recursion
 
@@ -606,7 +613,7 @@ Recorrido(Retorno): image
 
                                            (car listastrings)
                                        
-                                           (string-append (car listastrings) (unirpixs2 (cdr listastrings))) ) )) ; Recursion
+                                           (string-append (car listastrings) (unirpixs2 (cdr listastrings))) ) )) ; Recursion de cola. No se dejan procedimientos sin realizar en el camino
                    (unirpixs2 listastrings)))
 
 ; --------- Tipo de Funcion: Otros ------------
@@ -629,7 +636,7 @@ Recorrido(Retorno): image
 
 #| Documentacion: image->string
 Descripcion: Función que transforma una imagen a una representación string. 
-Tipo de algoritmo/estrategia: No aplica
+Tipo de algoritmo/estrategia: Fuerza bruta debido a que realiza un proceso u otro dependiendo del tipo de pixeles
 Dominio(Argumento de entrada): imagen (image) X funcion (procedure)
 Recorrido(Retorno): string
 |#
@@ -703,7 +710,8 @@ Recorrido(Retorno): string
                                (if (= cont largo)
                                 listapixeles
                                 (if (null? (car listapixeles))
-                                   (append (cons (append '(0 0 1) (cons profundidad null)) null) (rellenar imagen (cdr listapixeles) profundidad largo (+ cont 1)) ); Recursion
+                                   (append (cons (append '(0 0 1) (cons profundidad null)) null) (rellenar imagen (cdr listapixeles) profundidad largo (+ cont 1)) )
+                                                           ; Recursion de cola. No se dejan procedimientos sin realizar en el camino
                                  (append (cons (car listapixeles) null) (rellenar imagen (cdr listapixeles) profundidad largo (+ cont 1)) ) ) ) )) ; Recursion
 
                             (rellenar imagen listapixeles profundidad largo 0)))
@@ -789,8 +797,8 @@ Recorrido(Retorno): string
             (if (and (= conty maxY) (= contx maxX))
                 (cons (append (cons conty null) (cons contx null) (cddr (list-ref listapixeles 0))) null)
                 (if (= contx maxX)
-                  (append (cons (append (cons conty null)(cons contx null)(rest(rest(list-ref listapixeles 0)))) null)(corregir (cdr listapixeles) (+ conty 1) 0)) ;Recursion
-                    (if (= conty maxY)
+                  (append (cons (append (cons conty null)(cons contx null)(rest(rest(list-ref listapixeles 0)))) null)(corregir (cdr listapixeles) (+ conty 1) 0)) 
+                    (if (= conty maxY)                                                                   ; Recursion de cola. No se dejan procedimientos sin realizar en el camino
                     (append(cons(append (cons conty null)(cons contx null)(rest(rest(list-ref listapixeles 0)))) null) (corregir (cdr listapixeles) conty (+ contx 1))) ;Recursion                             
                     (append(cons(append (cons conty null)(cons contx null)(rest(rest(list-ref listapixeles 0)))) null) (corregir (cdr listapixeles) conty (+ contx 1))) ;Recursion
                         )))                        
@@ -813,7 +821,7 @@ Recorrido(Retorno): string
 #| Documentacion: depthLayers
 Descripcion: Función que permite separar una imágen en capas en base a la profundidad en que se sitúan los pixeles.
 Además, en las imágenes resultantes se sustituyen los píxeles que se encuentran en otro nivel de profundidad por píxeles blancos
-Tipo de algoritmo/estrategia: No aplica
+Tipo de algoritmo/estrategia: Fuerza bruta, debido a que en la funcion corregirtodos, realiza un proceso u otro dependiendo del tipo de pixeles
 Dominio(Argumento de entrada): imagen (image)
 Recorrido(Retorno): list
 |#
