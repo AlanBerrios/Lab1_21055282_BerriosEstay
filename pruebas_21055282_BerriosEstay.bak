@@ -518,9 +518,6 @@ imagen4x4hex                  ;Resultado esperado: imagen4x4rgb con sus colores 
 (rotate90 imagen2x2hex) ;Resultado esperado: '(2 2 ((0 0 "#FA090A" 12) (0 1 "#F40111" 10) (1 0 "#59000A" 13) (1 1 "#F21716" 11)))
 (display "\n")
 (display "\n")
-(rotate90(rotate90(rotate90(rotate90 imagen2x2bit)))) ; Resultado esperado: la misma imagen
-(display "\n")
-(display "\n")
 (display "------------------------------------ compress -----------------------------------------------------------------------------------")
 (display "\n")
 (display "\n")
